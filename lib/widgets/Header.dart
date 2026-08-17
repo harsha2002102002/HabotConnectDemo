@@ -20,17 +20,10 @@ class Header extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-            size: 30,
-          ),
-
-          const SizedBox(width: 20),
-
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: const [
                 Text(
                   'LSA Onboarding Gate',
@@ -40,9 +33,7 @@ class Header extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-
                 SizedBox(height: 5),
-
                 Text(
                   'HabotConnect Data Compliance',
                   style: TextStyle(

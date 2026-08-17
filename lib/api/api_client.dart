@@ -28,10 +28,8 @@ class ApiClient {
   const ApiClient({
     this.scenario = MockApiScenario.success,
   });
-
   static const String endpoint =
       'https://api.habotconnect.com/v1/compliance/verify';
-
   Future<ApiResponse> submitVerification({
     required VerificationRequest request,
     required String traceId,

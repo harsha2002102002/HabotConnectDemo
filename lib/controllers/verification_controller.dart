@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 import '../api/api_client.dart';
+import '../services/friction_tracker.dart';
 import '../services/verification_service.dart';
 
 enum VerificationStatus {
@@ -14,15 +15,14 @@ class VerificationController extends ChangeNotifier {
   String lsaId = 'LSA-7049';
   bool isSubmissionLocked = false;
   String parentConsentCode = '';
-
-  String? predecessorId = 'PRED-9982-XYZ';
+  final FrictionTracker frictionTracker = FrictionTracker();
+  String? predecessorId = null;
 
   VerificationStatus status =
       VerificationStatus.idle;
 
   String statusMessage =
       'System is ready. Please enter the consent code and submit.';
-
   late VerificationService verificationService;
 
   VerificationController({
@@ -39,11 +39,23 @@ class VerificationController extends ChangeNotifier {
   // ============================================================
   // INPUT
   // ============================================================
-
+  @override
+  void dispose() {
+    frictionTracker.dispose();
+    super.dispose();
+  }
   void updateConsentCode(String value) {
     parentConsentCode = value;
   }
+  void startConsentFrictionTracking() {
+    frictionTracker.start(
+      fieldName: 'parent_consent_code',
+    );
+  }
 
+  void stopConsentFrictionTracking() {
+    frictionTracker.stop();
+  }
   // ============================================================
   // SUBMIT
   // ============================================================

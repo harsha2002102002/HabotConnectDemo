@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lsa/services/friction_tracker.dart';
 import 'package:lsa/widgets/LsaVerificationScreen.dart';
-
 import 'api/api_client.dart';
 import 'controllers/verification_controller.dart';
 
@@ -23,44 +22,28 @@ class HabotApp extends StatelessWidget {
           seedColor: const Color(0xFF4532B8),
         ),
       ),
-      home: const VerificationHost(),
+      home:  VerificationHost(),
     );
   }
 }
-class VerificationHost extends StatefulWidget {
-  const VerificationHost({super.key});
 
-  @override
-  State<VerificationHost> createState() => _VerificationHostState();
-}
-class _VerificationHostState extends State<VerificationHost> {
-  late final VerificationController controller;
+class VerificationHost extends StatelessWidget {
+  VerificationHost({super.key});
 
-  @override
-  void initState() {
-    super.initState();
-    controller = VerificationController(
-      scenario: MockApiScenario.success,
-    );
-    controller.
-    addListener(_onControllerChanged);
-  }
-  void _onControllerChanged() {
-    setState(() {});
-  }
-
-  @override
-  void dispose() {
-    controller.removeListener(_onControllerChanged);
-    controller.dispose();
-
-    super.dispose();
-  }
+  final VerificationController controller =
+  VerificationController(
+    scenario: MockApiScenario.success,
+  );
 
   @override
   Widget build(BuildContext context) {
-    return LsaVerificationScreen(
-      controller: controller,
+    return ListenableBuilder(
+      listenable: controller,
+      builder: (context, child) {
+        return LsaVerificationScreen(
+          controller: controller,
+        );
+      },
     );
   }
 }

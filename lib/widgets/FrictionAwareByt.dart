@@ -1,43 +1,22 @@
 import 'package:flutter/material.dart';
 
 import '../controllers/verification_controller.dart';
-import '../services/friction_tracker.dart';
-class FrictionAwareConsentField extends StatefulWidget {
+
+class FrictionAwareConsentField extends StatelessWidget {
   final VerificationController controller;
 
   const FrictionAwareConsentField({
+    super.key,
     required this.controller,
   });
 
-  @override
-  State<FrictionAwareConsentField> createState() =>
-      FrictionAwareConsentFieldState();
-}
-class FrictionAwareConsentFieldState
-    extends State<FrictionAwareConsentField> {
-  late final FrictionTracker _frictionTracker;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _frictionTracker = FrictionTracker();
-  }
-
-  @override
-  void dispose() {
-    _frictionTracker.dispose();
-
-    super.dispose();
-  }
-
-  void _handleFocus(bool hasFocus) {
+  void _handleFocus(
+      bool hasFocus,
+      ) {
     if (hasFocus) {
-      _frictionTracker.start(
-        fieldName: 'parent_consent_code',
-      );
+      controller.startConsentFrictionTracking();
     } else {
-      _frictionTracker.stop();
+      controller.stopConsentFrictionTracking();
     }
   }
 
@@ -47,10 +26,8 @@ class FrictionAwareConsentFieldState
       onFocusChange: _handleFocus,
       child: TextField(
         onChanged: (value) {
-          // User interacted with the field.
-          _frictionTracker.stop();
-
-          widget.controller.updateConsentCode(value);
+          controller.stopConsentFrictionTracking();
+          controller.updateConsentCode(value);
         },
         decoration: const InputDecoration(
           hintText: 'Enter parent consent code',
@@ -66,4 +43,3 @@ class FrictionAwareConsentFieldState
     );
   }
 }
-

@@ -25,7 +25,7 @@ class StatusBanner extends StatelessWidget {
         statusText = 'Success';
         break;
 
-      case VerificationStatus.quarantined:
+        case VerificationStatus.quarantined:
         statusText = 'Quarantined (Fail-Closed)';
         break;
     }
@@ -56,9 +56,7 @@ class StatusBanner extends StatelessWidget {
               size: 28,
             ),
           ),
-
           const SizedBox(width: 16),
-
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

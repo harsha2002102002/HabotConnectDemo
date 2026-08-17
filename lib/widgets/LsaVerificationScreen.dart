@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart'
-;
+import 'package:flutter/material.dart';
 import 'package:lsa/widgets/StatusBanner.dart';
 
 import '../controllers/verification_controller.dart';
@@ -32,9 +31,7 @@ class LsaVerificationScreen extends StatelessWidget {
                     StatusBanner(
                       controller: controller,
                     ),
-
                     const SizedBox(height: 40),
-
                     const Text(
                       'HabotConnect  |  Data Integrity • Security • Compliance',
                       textAlign: TextAlign.center,
